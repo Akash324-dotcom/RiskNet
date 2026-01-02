@@ -1,0 +1,12 @@
+jupyterlab
+notebook
+pandas
+matplotlib
+seaborn
+ipykernel
+scikit-learn
+scipy
+joblib
+threadpoolctl
+numpy
+plotly
