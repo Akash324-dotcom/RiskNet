@@ -5,8 +5,6 @@
 
 This repository contains an end-to-end **credit card fraud detection** project built as part of a structured learning roadmap (data analytics → machine learning). The **detailed problem statement, EDA, data cleaning, visualizations, and modeling rationale are intentionally documented inside the Jupyter notebooks** to keep analysis close to code.
 
-The README acts as a **navigation + recruiter summary**, while the notebooks contain the full technical depth.
-
 ---
 
 ## Problem Statement (Summary)
@@ -21,7 +19,15 @@ Build an analytics-driven fraud detection pipeline that:
 * Trains baseline and ML models suited for imbalanced data
 * Evaluates performance using **Precision-Recall–focused metrics**
 
->  Full problem statement and justification are documented in `01_exploration.ipynb`.
+>  Full problem statement and justification are documented in `01_getting_started.ipynb`.
+
+---
+
+## Data Access
+The dataset is not included due to size and privacy constraints.
+Download it from Kaggle (Credit Card Fraud Detection dataset) - https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+and place it in:
+banking_fraudulant_analytics/data/
 
 ---
 
