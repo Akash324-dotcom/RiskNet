@@ -3,7 +3,9 @@
 
 ## Overview
 
-This repository contains an end-to-end **credit card fraud detection** project built as part of a structured learning roadmap (data analytics → machine learning). The **detailed problem statement, EDA, data cleaning, visualizations, and modeling rationale are intentionally documented inside the Jupyter notebooks** to keep analysis close to code.
+This repository is a **credit card fraud detection** project built as part of a structured learning roadmap (data analytics → machine learning). The detailed problem statement, EDA, data checks and visualizations are documented inside the Jupyter notebook to keep the analysis close to the code.
+
+**Status: exploration and data preparation are done; model training and evaluation are not yet in the repo** (see [Where it stands](#where-it-stands)).
 
 ---
 
@@ -15,9 +17,9 @@ Financial institutions face significant losses due to fraudulent credit card tra
 Build an analytics-driven fraud detection pipeline that:
 
 * Explores anonymized transaction behavior
-* Handles missing values and scaling correctly
-* Trains baseline and ML models suited for imbalanced data
-* Evaluates performance using **Precision-Recall–focused metrics**
+* Prepares the data correctly for imbalanced classification
+* Trains baseline and ML models suited for imbalanced data *(next step)*
+* Evaluates performance using **Precision-Recall–focused metrics** *(next step)*
 
 >  Full problem statement and justification are documented in `01_getting_started.ipynb`.
 
@@ -49,42 +51,42 @@ banking_fraudulant_analytics/data/
 banking_fraudulant_analytics/
 │
 ├── notebooks/
-│   ├── 01_getting_started.ipynb
-│
-├── data/                         # Dataset path (ignored in git)
-├── README.md
-└── .gitignore
+│   └── 01_getting_started.ipynb   # problem statement, EDA, data checks, train/test split
+├── data/                          # put creditcard.csv here (ignored by git)
+└── requirements.txt
 ```
 
 ---
 
-## Methodology (High Level)
+## Where it stands
 
-* **Exploratory Data Analysis:** Class imbalance, amount distribution, correlation heatmaps
-* **Preprocessing:**
+### Done (results from the notebook)
 
-  * Median imputation for robustness
-  * Standard scaling prior to ML models
-* **Modeling:**
+| Step | Result |
+|---|---|
+| Size and types | 284,807 rows × 31 columns, all numeric |
+| Missing values | None in any column |
+| Class balance | 284,315 legitimate and **492 fraud (0.1727%)** |
+| Feature engineering | `Time` (seconds) converted to `Hour` (hour of day), then dropped |
+| Correlations | `V1`–`V28` are uncorrelated with each other (as expected after PCA). The strongest pairs involve the original columns: `Amount`–`V2` (−0.53), `Time`–`V3` (−0.42), `Amount`–`V7` (0.40) |
+| Distributions | Histograms of every feature for fraud versus legitimate transactions |
+| Train/test split | 80/20, `random_state=100`: 227,845 train rows (396 fraud) and 56,962 test rows (96 fraud). The split is **not stratified**, so the fraud share differs slightly (0.174% train, 0.169% test) |
 
-  * Logistic Regression (baseline)
-  * Tree-based / ensemble models (where applicable)
-* **Evaluation:**
+The last notebook cell draws a confusion matrix of `y_test` against itself. That is a check that the plotting function works, **not a model result**.
 
-  * Precision, Recall, F1-score
-  * **Area Under Precision-Recall Curve (AUPRC)**
+### Not done yet
 
-📊 Detailed reasoning and code live inside the notebooks.
+* A trained model of any kind (no logistic regression baseline, no tree-based model)
+* Scaling of `Amount` and the imputation step described in the notebook (no values are missing, so imputation is not needed for this dataset)
+* Precision, recall, F1 and AUPRC on the test set
+* Any reported fraud-detection performance
 
----
+### Next
 
-## Key Outcomes (Example)
-
-* Improved fraud recall while controlling false positives
-* Demonstrated why PR-based metrics outperform accuracy in imbalanced datasets
-* Built a reproducible, modular ML pipeline suitable for banking use cases
-
-(Exact metrics and plots are documented in `02_fraud_model.ipynb`.)
+1. Stratified split, so the 492 frauds are spread evenly.
+2. Logistic regression baseline with class weights, then a gradient-boosted model.
+3. Evaluate on the held-out test set with Precision-Recall curve and AUPRC, plus precision and recall at a chosen threshold, because accuracy is misleading at 0.17% fraud.
+4. Record the numbers here.
 
 ---
 
@@ -92,7 +94,7 @@ banking_fraudulant_analytics/
 
 * Python
 * Pandas, NumPy
-* Scikit-learn
+* Scikit-learn (train/test split and metrics so far)
 * Matplotlib, Seaborn
 * Jupyter Notebook (VS Code)
 * Git & GitHub

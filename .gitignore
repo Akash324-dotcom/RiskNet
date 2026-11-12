@@ -1,0 +1,6 @@
+# the Kaggle dataset is ~150 MB and must not be committed
+banking_fraudulant_analytics/data/*.csv
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.env
